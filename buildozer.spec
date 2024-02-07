@@ -42,17 +42,17 @@ version = 1.0
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.8.12,hostpython3==3.8.12,kivy,kivymd,requests,plyer
+requirements = python3==3.8.12,hostpython3==3.8.12,kivy,kivymd,requests
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-presplash.filename = fr.jpg
+presplash.filename = icon.jpg
 
 # (str) Icon of the application
-icon.filename = fr.jpg
+icon.filename = icon.jpg
 
 # (list) Supported orientations
 # Valid options are: landscape, portrait, portrait-reverse or landscape-reverse
