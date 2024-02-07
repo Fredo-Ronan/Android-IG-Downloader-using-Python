@@ -9,7 +9,7 @@
 title = Fredo Instagram Downloader
 
 # (str) Package name
-package.name = fredoinstagramdownloader
+package.name = fredoIG
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.fredo
@@ -18,7 +18,7 @@ package.domain = org.fredo
 source.dir = .
 
 # (list) Source files to include (leave empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,ico,icns
+source.include_exts = py,png,jpg,kv,atlas
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -34,7 +34,7 @@ source.include_exts = py,png,jpg,kv,atlas,ico,icns
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.1
+version = 1.0
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -42,7 +42,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,kivymd,instaloader,requests
+requirements = python3==3.8.12,hostpython3==3.8.12,kivy,kivymd,requests,plyer
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -291,7 +291,7 @@ android.permissions = android.permission.INTERNET, (name=android.permission.WRIT
 
 # (list) The Android archs to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
 # In past, was `android.arch` as we weren't supporting builds for multiple archs at the same time.
-android.archs = arm64-v8a, armeabi-v7a
+android.archs = arm64-v8a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
@@ -321,7 +321,7 @@ android.allow_backup = True
 #
 # Python for android (p4a) specific
 #
-
+[p4a]
 # (str) python-for-android URL to use for checkout
 #p4a.url =
 
@@ -329,7 +329,7 @@ android.allow_backup = True
 #p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-#p4a.branch = master
+p4a.branch = 3.8.10
 
 # (str) python-for-android specific commit to use, defaults to HEAD, must be within p4a.branch
 #p4a.commit = HEAD
