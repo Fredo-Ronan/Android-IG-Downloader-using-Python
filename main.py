@@ -19,7 +19,7 @@ class InstaDownloaderApp(App):
     def build(self):
         # Check version function
         self.version_url = "https://api.github.com/repos/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest"
-        self.current_version = "1.2.2"
+        self.current_version = "1.2.4"
         self.check_updates()
 
         self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
@@ -51,7 +51,7 @@ class InstaDownloaderApp(App):
 
         header_label3 = Label(
             text=f'version {self.current_version}',
-            font_size=18,
+            font_size=20,
             color=[1, 1, 1, 1],  # White color
             halign='center',  # Center align the text
             valign='middle',  # Vertically align the text in the middle
