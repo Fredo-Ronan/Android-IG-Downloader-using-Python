@@ -135,7 +135,7 @@ class InstaDownloaderApp(App):
             update_status_popup = self.create_download_popup()
             update_status_popup.open()
             # Interact with github api to get the latest version from repository
-            apk_url = f'https://github.com/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest/download/Fredo Instagram Downloader.apk'
+            apk_url = f'https://github.com/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest/download/Fredo.Instagram.Downloader.apk'
             response = requests.get(apk_url)
             response.raise_for_status()
 
