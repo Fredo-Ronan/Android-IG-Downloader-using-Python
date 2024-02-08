@@ -76,7 +76,7 @@ class InstaDownloaderApp(App):
             background_color=[0, 1, 1, 1],  # Green ish color
         )
         update_app_btn = Button(
-            text=f'Update to latest version {self.latest_version}',
+            text=f'Update to latest version {self.current_version}',
             font_size=24,
             on_press=self.update_app,
             background_color=[0, 1, 0.5, 1],
