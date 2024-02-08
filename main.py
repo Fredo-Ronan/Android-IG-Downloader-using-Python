@@ -19,7 +19,7 @@ class InstaDownloaderApp(App):
     def build(self):
         # Check version function
         self.version_url = "https://api.github.com/repos/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest"
-        self.current_version = "1.2.0"
+        self.current_version = "1.2.1"
         self.check_updates()
 
         self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
@@ -77,7 +77,7 @@ class InstaDownloaderApp(App):
         )
         update_app_btn = Button(
             text=f'Update to latest version {self.latest_version}',
-            font_size=24,
+            font_size=30,
             on_press=self.update_app,
             background_color=[0, 1, 0.5, 1],
         )
