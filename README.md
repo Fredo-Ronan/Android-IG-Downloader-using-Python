@@ -1,9 +1,9 @@
 # Simple Instagram Downloader
 This is a simple instagram downloader app built using python. It's currently support on Android only.
 
-## APK file release v1.2.0
+## APK file release v1.2.2
 Here you can download the .apk file and install it on your Android phone.<br>
-[Click Here to Download](https://github.com/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/download/1.2.0/Fredo.Instagram.Downloader.apk)
+[Click Here to Download](https://github.com/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/download/1.2.2/Fredo.Instagram.Downloader.apk)
 
 ## Fact about this project
 This project is using Instaloader library. Actually you can install it using pip and use it on your python code like this
@@ -33,4 +33,4 @@ Then i do that. And after rebuild all, it works fine on Android.<br><br><br>
 That's is a short fact about this app development process. Actually it's more than that, i can explain why that error happen other than because of Instaloader has import to it.
 
 ## What's next?
-This app is still in development, it's still in very early stage release on version 1.2.0 that only support Android phones and very basic UI. Stay tune for the next updates :) 👍
+This app is still in development, it's still in very early stage release on version 1.2.2 that only support Android phones and very basic UI. Stay tune for the next updates :) 👍

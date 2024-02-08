@@ -19,7 +19,7 @@ class InstaDownloaderApp(App):
     def build(self):
         # Check version function
         self.version_url = "https://api.github.com/repos/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest"
-        self.current_version = "1.2.1"
+        self.current_version = "1.2.2"
         self.check_updates()
 
         self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
@@ -130,7 +130,7 @@ class InstaDownloaderApp(App):
         )
         update_done.open()
 
-    def update_app(self):
+    def update_app(self, instance):
         try:
             update_status_popup = self.create_download_popup()
             update_status_popup.open()
