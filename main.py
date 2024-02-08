@@ -19,7 +19,7 @@ class InstaDownloaderApp(App):
     def build(self):
         # Check version function
         self.version_url = "https://api.github.com/repos/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest"
-        self.current_version = "1.1"
+        self.current_version = "1.2.0"
         self.check_updates()
 
         self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
@@ -111,21 +111,43 @@ class InstaDownloaderApp(App):
         except Exception as e:
             print(f"Error fetching latest version: {e}")
             return None
+    
+    def create_update_popup():
+        update_popup = Popup(
+            title='Updating...',
+            content=Label(text='Please wait while the update is in progress.'),
+            size_hint=(None, None),
+            size=(400, 250),
+        )
+        return update_popup
+    
+    def show_update_done():
+        update_done = Popup(
+            title='Update Done!',
+            content=Label(text='You may restart the app to enjoy the new version'),
+            size_hint=(None, None),
+            size=(400, 250),
+        )
+        update_done.open()
 
     def update_app(self):
         try:
-            # Replace 'your_username/your_repo' with your GitHub username and repository
+            update_status_popup = self.create_download_popup()
+            update_status_popup.open()
+            # Interact with github api to get the latest version from repository
             apk_url = f'https://github.com/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest/download/Fredo Instagram Downloader.apk'
             response = requests.get(apk_url)
             response.raise_for_status()
 
             # Save the new APK file
-            new_apk_path = 'new_version.apk'
+            new_apk_path = 'Fredo_Instagram_Downloader.apk'
             with open(new_apk_path, 'wb') as apk_file:
                 apk_file.write(response.content)
 
             # Install the new APK
             self.install_apk(new_apk_path)
+            update_status_popup.dismiss()
+            self.show_update_done()
         except Exception as e:
             print(f"Error updating app: {e}")
     
@@ -185,7 +207,7 @@ class InstaDownloaderApp(App):
             title='Downloading...',
             content=Label(text='Please wait while the download is in progress.'),
             size_hint=(None, None),
-            size=(300, 150),
+            size=(400, 250),
         )
         return download_popup
 
