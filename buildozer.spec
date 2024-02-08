@@ -18,7 +18,7 @@ package.domain = org.fredo
 source.dir = .
 
 # (list) Source files to include (leave empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas
+source.include_exts = py,png,jpg,kv,atlas,ttf,otf,zip,json
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -42,7 +42,7 @@ version = 1.0
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.8.12,hostpython3==3.8.12,kivy,kivymd,requests
+requirements = python3==3.8.12,hostpython3==3.8.12,kivy,kivymd,requests,plyer,jnius
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes

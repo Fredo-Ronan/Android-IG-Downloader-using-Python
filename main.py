@@ -1,4 +1,6 @@
 from kivy.clock import Clock
+from kivy.utils import platform
+from kivy.logger import Logger
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
@@ -15,6 +17,11 @@ import os
 
 class InstaDownloaderApp(App):
     def build(self):
+        # Check version function
+        self.version_url = "https://api.github.com/repos/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest"
+        self.current_version = "1.1"
+        self.check_updates()
+
         self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
 
         # FloatLayout for the header section
@@ -23,7 +30,7 @@ class InstaDownloaderApp(App):
         # Header Labels
         header_label1 = Label(
             text='Instagram Downloader',
-            font_size=40,
+            font_size=50,
             bold=True,
             color=[1, 1, 1, 1],  # White color
             halign='center',  # Center align the text
@@ -34,7 +41,7 @@ class InstaDownloaderApp(App):
 
         header_label2 = Label(
             text='by Fredo Ronan',
-            font_size=24,
+            font_size=30,
             color=[1, 1, 1, 1],  # White color
             halign='center',  # Center align the text
             valign='middle',  # Vertically align the text in the middle
@@ -42,20 +49,37 @@ class InstaDownloaderApp(App):
             pos_hint={'center_x': 0.5, 'center_y': 0.1},  # Adjust position
         )
 
+        header_label3 = Label(
+            text=f'version {self.latest_version}',
+            font_size=18,
+            color=[1, 1, 1, 1],  # White color
+            halign='center',  # Center align the text
+            valign='middle',  # Vertically align the text in the middle
+            size_hint=(1, 1),
+            pos_hint={'center_x': 0.94, 'center_y': 0.01},  # Adjust position
+        )
+
         header_layout.add_widget(header_label1)
         header_layout.add_widget(header_label2)
+        header_layout.add_widget(header_label3)
 
         # Input Box and Download Button
         self.link_input = TextInput(
             hint_text='Enter Instagram Link',
-            multiline=False,
+            multiline=True,
             write_tab=False,
         )
         download_button = Button(
             text='Download',
-            font_size=40,
+            font_size=50,
             on_press=self.show_download_popup,
-            background_color=[0, 1, 1, 1],  # Blue color
+            background_color=[0, 1, 1, 1],  # Green ish color
+        )
+        update_app_btn = Button(
+            text=f'Update to latest version {self.latest_version}',
+            font_size=24,
+            on_press=self.check_updates,
+            background_color=[0, 1, 0.5, 1],
         )
 
         # Progress Bar
@@ -65,10 +89,73 @@ class InstaDownloaderApp(App):
         self.layout.add_widget(header_layout)
         self.layout.add_widget(self.link_input)
         self.layout.add_widget(download_button)
+
+        if self.latest_version != self.current_version:
+            self.layout.add_widget(update_app_btn)
+        
         self.layout.add_widget(self.progress_bar)
 
         return self.layout
+    
+    # Update Functions
+    def check_updates(self):
+        self.latest_version = self.get_latest_version()
+        print(self.latest_version)
 
+        if self.latest_version and self.latest_version != self.current_version:
+            print(f'Updating from {self.current_version} to {self.latest_version}')
+            self.update_app()
+
+    def get_latest_version(self):
+        try:
+            response = requests.get(self.version_url)
+            response.raise_for_status()
+            release_info = response.json()
+            latest_version = release_info['tag_name']
+            return latest_version
+        except Exception as e:
+            print(f"Error fetching latest version: {e}")
+            return None
+
+    def update_app(self):
+        try:
+            # Replace 'your_username/your_repo' with your GitHub username and repository
+            apk_url = f'https://github.com/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest/download/Fredo Instagram Downloader.apk'
+            response = requests.get(apk_url)
+            response.raise_for_status()
+
+            # Save the new APK file
+            new_apk_path = 'new_version.apk'
+            with open(new_apk_path, 'wb') as apk_file:
+                apk_file.write(response.content)
+
+            # Install the new APK
+            self.install_apk(new_apk_path)
+        except Exception as e:
+            print(f"Error updating app: {e}")
+    
+
+    def install_apk(self, apk_path):
+        if platform == 'android':
+            try:
+                from jnius import autoclass
+
+                PythonActivity = autoclass('org.kivy.android.PythonActivity')
+                Intent = autoclass('android.content.Intent')
+                Uri = autoclass('android.net.Uri')
+
+                intent = Intent(Intent.ACTION_VIEW)
+                intent.setDataAndType(Uri.parse(f'file://{apk_path}'), 'application/vnd.android.package-archive')
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                PythonActivity.mActivity.startActivity(intent)
+
+            except Exception as e:
+                Logger.error(f"Error installing APK: {e}")
+        else:
+            Logger.error("Update not supported on this platform.")
+
+
+    # Main App Functions
     def parse_link(self, link):
         clean_up_pattern = re.compile(r'https://www\.instagram\.com/([^/]+)/([^/?]+)/\?.*')
         match = re.search(clean_up_pattern, link)
@@ -153,7 +240,7 @@ class InstaDownloaderApp(App):
             title='Error',
             content=Label(text=message),
             size_hint=(None, None),
-            size=(300, 150),
+            size=(400, 250),
         )
         error_popup.open()
 
@@ -162,7 +249,7 @@ class InstaDownloaderApp(App):
             title='Success',
             content=Label(text=message),
             size_hint=(None, None),
-            size=(300, 150),
+            size=(400, 250),
         )
         success_popup.open()
         # Schedule a reset function after success popup disappears
