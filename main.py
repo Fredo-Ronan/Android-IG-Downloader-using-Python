@@ -78,7 +78,7 @@ class InstaDownloaderApp(App):
         update_app_btn = Button(
             text=f'Update to latest version {self.latest_version}',
             font_size=24,
-            on_press=self.check_updates,
+            on_press=self.update_app,
             background_color=[0, 1, 0.5, 1],
         )
 
@@ -100,11 +100,6 @@ class InstaDownloaderApp(App):
     # Update Functions
     def check_updates(self):
         self.latest_version = self.get_latest_version()
-        print(self.latest_version)
-
-        if self.latest_version and self.latest_version != self.current_version:
-            print(f'Updating from {self.current_version} to {self.latest_version}')
-            self.update_app()
 
     def get_latest_version(self):
         try:
