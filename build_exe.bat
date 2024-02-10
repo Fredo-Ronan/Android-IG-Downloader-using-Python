@@ -1,0 +1,1 @@
+pyinstaller --name "Fredo Instagram Downloader" --onefile --windowed --icon=assets/icon.ico .\main.py

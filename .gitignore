@@ -1,2 +1,5 @@
 /.buildozer/
+/build
+/dist/main/
+/setup_maker
 *.mp4

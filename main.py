@@ -1,12 +1,33 @@
 # insta_downloader_app.py
+from kivy.config import Config
+from kivy.core.window import Window
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager
 
 from pages.main_screen import MainScreen
 from pages.new_version_screen import NewVersionScreen
 import requests
+import sys
+import os
 
-class InstaDownloaderApp(App):
+Config.set('kivy', 'window_title', 'Fredo Instagram Downloader')
+
+# https://stackoverflow.com/questions/31836104/pyinstaller-and-onefile-how-to-include-an-image-in-the-exe-file
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+Config.set('kivy', 'window_icon', resource_path('assets\\icon.ico'))
+Window.set_icon(resource_path('assets\\icon.ico'))
+Window.set_title('Fredo Instagram Downloader')
+
+class Fredo_Instagram_DownloaderApp(App):
     def build(self):
         # Check for a new version
         version_url = "https://api.github.com/repos/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest"
@@ -65,4 +86,4 @@ class InstaDownloaderApp(App):
         self.root.current = 'main'
 
 if __name__ == "__main__":
-    InstaDownloaderApp().run()
+    Fredo_Instagram_DownloaderApp().run()

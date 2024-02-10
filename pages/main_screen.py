@@ -1,4 +1,5 @@
 # main_screen.py
+from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
 from kivy.uix.textinput import TextInput
@@ -17,6 +18,9 @@ import os
 class MainScreen(Screen):
     def __init__(self, version_text, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
+
+        Window.set_icon('icon.ico')
+        Window.set_title('Fredo Instagram Downloader')
 
         self.name = 'main'
 

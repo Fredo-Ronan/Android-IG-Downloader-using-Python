@@ -1,4 +1,5 @@
 # new_version_screen.py
+from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -9,6 +10,9 @@ from kivy.uix.floatlayout import FloatLayout
 class NewVersionScreen(Screen):
     def __init__(self, version_text, current, show_main_screen, **kwargs):
         super(NewVersionScreen, self).__init__(**kwargs)
+
+        Window.set_icon('icon.ico')
+        Window.set_title('Fredo Instagram Downloader')
 
         self.url = 'https://github.com/Fredo-Ronan/Android-IG-Downloader-using-Python/releases/latest'
 
