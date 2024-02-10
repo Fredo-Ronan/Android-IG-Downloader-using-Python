@@ -1,4 +1,5 @@
 # main_screen.py
+from kivy.utils import platform
 from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
@@ -10,6 +11,7 @@ from kivy.uix.progressbar import ProgressBar
 from kivy.uix.screenmanager import Screen
 from kivy.uix.floatlayout import FloatLayout
 
+from pathlib import Path
 from instaloader2 import instaloader
 import re
 import requests
@@ -131,12 +133,31 @@ class MainScreen(Screen):
     def download_instagram_media(self, short_code):
         loader = instaloader.Instaloader()
         post = instaloader.Post.from_shortcode(loader.context, short_code)
+        internal_storage_download_path = ""
 
         # Set the custom directory name
         custom_directory = 'Download'
 
         # Construct the target directory path
-        internal_storage_download_path = os.path.join('/storage/emulated/0', custom_directory)
+        if platform == 'android':
+            internal_storage_download_path = os.path.join('/storage/emulated/0', custom_directory)
+        elif platform == 'win':
+            home_dir = str(Path.home())
+            download_dir = os.path.join(home_dir, 'Downloads')
+
+            if os.path.exists(download_dir):
+                internal_storage_download_path = download_dir
+            else:
+                raise Exception('Failed to find download folder')
+        elif platform == 'ios':
+            # ios platform dir implementation
+            pass
+        elif platform == 'linux':
+            # linux platform dir implementation
+            pass
+        elif platform == 'macosx':
+            # mac os platform dir implementation
+            pass
 
         # Create the custom directory if it doesn't exist
         os.makedirs(internal_storage_download_path, exist_ok=True)
